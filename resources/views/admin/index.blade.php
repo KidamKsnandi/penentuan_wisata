@@ -155,6 +155,55 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-12">
+                <div id="chart"></div>
+            </div>
         </div>
 
     @endsection
+
+    @section('js')
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        Highcharts.chart('chart', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Laporan Jumlah Pengunjung'
+    },
+    subtitle: {
+        text: 'Total : {{ $jumlah_visitor }}'
+    },
+    xAxis: {
+        categories: {!! json_encode($chart) !!},
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Banyaknya Jumlah pengunjung'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y} </b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.3,
+            borderWidth: 0,
+        }
+    },
+    series: [{
+        name: 'Jumlah Pengunjung',
+        data: {!! json_encode($jumlah_pengunjung) !!}
+
+    }]
+});
+    </script>
+@endsection

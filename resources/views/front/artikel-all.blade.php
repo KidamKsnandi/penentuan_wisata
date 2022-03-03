@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-
     <!-- News With Sidebar Start -->
     <div class="container-fluid pt-5 mb-3">
         <div class="container">
@@ -32,10 +31,12 @@
                             </div>
                         @endforeach
                     </div>
+                    <div style="float: right;">
+                        {{ $artikel->links() }}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- News With Sidebar End -->
-
 @endsection

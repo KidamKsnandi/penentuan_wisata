@@ -6,6 +6,7 @@ use Alert;
 use App\Models\Artikel;
 use App\Models\Kategori;
 use App\Models\User;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,8 +29,20 @@ class HomeController extends Controller
     public function index()
     {
         $user = User::all();
-        $kategori = Kategori::all();
-        return view('admin.index', compact('user'));
+        $visitor = Visitor::all();
+        // data chart
+        $chart = [];
+        $jumlah_pengunjung = [];
+        foreach($visitor as $pengunjung) {
+            $chart[] = $pengunjung->created_at->format('d M');
+            $jumlah_pengunjung[] = $pengunjung->jumlah;
+        }
+        $jumlah_visitor = 0;
+        foreach ($visitor as $data) {
+            $jumlah_visitor += $data->jumlah;
+        }
+        // dd($jumlah_visitor);
+        return view('admin.index', compact('user','chart','jumlah_pengunjung', 'jumlah_visitor'));
     }
 
     public function index2()

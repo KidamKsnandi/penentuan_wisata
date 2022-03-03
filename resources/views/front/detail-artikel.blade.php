@@ -51,6 +51,7 @@
                             <h4 class="m-0 text-uppercase font-weight-bold">Artikel Trending</h4>
                         </div>
                         <div class="bg-white border border-top-0 p-3"> <?php error_reporting(error_reporting() & ~E_NOTICE); ?>
+                                {{ $arkel->links() }}
                             @foreach ($arkel as $data)
                                 @if ($data->slug != $artikel->slug)
                                     <?php $slide = json_decode($data->status, true); ?>

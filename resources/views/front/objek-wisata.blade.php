@@ -32,7 +32,9 @@
                                 </div>
                             </div>
                         @endforeach
-
+                    </div>
+                    <div style="float: right;">
+                        {{ $wisata->links() }}
                     </div>
                 </div>
             </div>

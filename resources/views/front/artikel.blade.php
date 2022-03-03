@@ -48,12 +48,10 @@
                             <h4 class="m-0 text-uppercase font-weight-bold">Artikel Trending</h4>
                         </div>
                         <div class="bg-white border border-top-0 p-3">
-                            @php $no=1 @endphp
-                            @foreach ($artikel as $data) <?php error_reporting(error_reporting() & ~E_NOTICE); ?>
-                                <?php $slide = json_decode($data->status, true);
-                                $no++; ?>
+                            {{ $arkel->links() }}
+                            @foreach ($arkel as $data) <?php error_reporting(error_reporting() & ~E_NOTICE); ?>
+                                <?php $slide = json_decode($data->status, true);?>
                                 @if ($slide[0] == 'Trending' || isset($slide[1]) == 'Trending')
-                                    @if ($no < 8)
                                         <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
                                             <img class="img-fluid" src="{{ $data->cover() }}"
                                                 style="width: 110px; height: 110px;" alt="">
@@ -66,7 +64,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endif
                                 @endif
                             @endforeach
                         </div>

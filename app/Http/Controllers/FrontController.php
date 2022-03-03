@@ -14,8 +14,7 @@ class FrontController extends Controller
     {
         $kategori = Kategori::orderBy('nama_kategori', 'asc')->get();
         $galeri = Galeri::with('wisata')->inRandomOrder()->limit(6)->get();
-        $visitor = Visitor::all();
-        return view('welcome', compact('kategori', 'galeri', 'visitor'));
+        return view('welcome', compact('kategori', 'galeri'));
     }
 
     public function berandakategori(Kategori $kategori)
@@ -37,7 +36,7 @@ class FrontController extends Controller
     public function objekwisata()
     {
         $katego = Kategori::orderBy('nama_kategori', 'asc')->get();
-        $wisata = Wisata::with('kategori')->orderBy('nama_wisata', 'asc')->get();
+        $wisata = Wisata::with('kategori')->orderBy('nama_wisata', 'asc')->paginate(12);
         return view('front/objek-wisata', compact('wisata', 'katego'));
     }
 
@@ -65,19 +64,20 @@ class FrontController extends Controller
     public function artikel()
     {
         $artikel = Artikel::with('user')->latest()->get();
-        return view('front/artikel', compact('artikel'));
+        $arkel = Artikel::with('user')->latest()->paginate(6);
+        return view('front/artikel', compact('artikel', 'arkel'));
     }
 
     public function artikelall()
     {
-        $artikel = Artikel::with('user')->latest()->get();
+        $artikel = Artikel::with('user')->latest()->paginate(6);
         return view('front/artikel-all', compact('artikel'));
     }
 
     public function artikeldetail(Artikel $artikel)
     {
         $artikel = Artikel::find($artikel->id);
-        $arkel = Artikel::with('user')->latest()->get();
+        $arkel = Artikel::with('user')->latest()->paginate(7);
         return view('front/detail-artikel', compact('artikel', 'arkel'));
     }
 

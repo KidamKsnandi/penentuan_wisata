@@ -35,12 +35,6 @@
                     <ul class="navbar-nav ml-n2">
                         <li class="nav-item border-secondary">
                             <small class="nav-link text-body small">{{ date('l, d M Y') }}</small>
-                            <small><?php $filetext = 'webcounter.txt';
-                                $counter = file($filetext);
-                                $visitor = $counter[0];
-                                $file = fopen($filetext, 'w');
-                                fwrite($file, $visitor);
-                                fclose($file); ?>{{ $visitor }}</small>
                         </li>
                     </ul>
                 </nav>

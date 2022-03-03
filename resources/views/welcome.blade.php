@@ -8,14 +8,32 @@
 // fclose($file);
 use App\Models\Visitor;
 $tanggal = date('Y-m-d');
-$pengunjung = Visitor::latest()->get();
+$pengunjung = Visitor::first()->get();
+foreach ($pengunjung as $value) {
+    $tgl = $value->tanggal;
+}
+if(date('Y-m-d') == $tgl) {
+    $hitung = Visitor::where('tanggal', $tgl)->get();
+    foreach ($hitung as $item) {
+        $jumlahnya = $item->jumlah + 1;
+    $item->jumlah = $jumlahnya;
+    $item->tanggal = $tanggal;
+    $item->save();
+    }
+} else {
+    $pengunjung = new Visitor;
+    $pengunjung->jumlah = 1;
+    $pengunjung->tanggal = $tanggal;
+    $pengunjung->save();
+}
 
-
+$visitor = Visitor::all();
+$jumlah_pengunjung = 0;
 foreach ($visitor as $data) {
-    $coba = $data->jumlah;
+    $jumlah_pengunjung += $data->jumlah;
 }
 ?>
-@dd($pengunjung)
+{{-- @dd($jumlah_pengunjung) --}}
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -82,7 +100,7 @@ Welcome Slider
         <div class="block">
             <span style="color: white">{{ date('l, d M Y') }} |</span>
             {{-- <span style="color: white">{{ date('Y-m-d') }} |</span> --}}
-            <span style="color: white">Pengunjung : {{$coba}}</span>
+            <span style="color: white">Pengunjung : {{$jumlah_pengunjung}}</span>
             <h1 style="text-transform: uppercase">Selamat Datang </h1>
             <p>Website ini menyediakan informasi objek wisata seputar objek wisata di Bandung</p>
             <a data-scroll href="/beranda" class="btn btn-transparent">Kunjungi Wisata</a>
